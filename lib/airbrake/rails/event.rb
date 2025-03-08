@@ -16,7 +16,7 @@ module Airbrake
       include Airbrake::Loggable
 
       def initialize(*args)
-        @event = ActiveSupport::Notifications::Event.new(*args)
+        @event = ::ActiveSupport::Notifications::Event.new(*args)
       end
 
       def method
@@ -71,7 +71,7 @@ module Airbrake
         return @event.payload[:status] if @event.payload[:status]
 
         if @event.payload[:exception]
-          status = ActionDispatch::ExceptionWrapper.status_code_for_exception(
+          status = ::ActionDispatch::ExceptionWrapper.status_code_for_exception(
             @event.payload[:exception].first,
           )
           status = 500 if status == 0

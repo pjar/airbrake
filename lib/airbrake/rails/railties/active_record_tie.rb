@@ -16,7 +16,7 @@ module Airbrake
         end
 
         def call
-          ActiveSupport.on_load(:active_record, run_once: true, yield: self) do
+          ::ActiveSupport.on_load(:active_record, run_once: true, yield: self) do
             tie_activerecord_callback_fix
             tie_activerecord_apm
           end
@@ -30,7 +30,7 @@ module Airbrake
           return unless defined?(::Rails)
           return if Gem::Version.new(::Rails.version) > Gem::Version.new('4.2')
 
-          ActiveRecord::Base.include(Airbrake::Rails::ActiveRecord)
+          ::ActiveRecord::Base.include(Airbrake::Rails::ActiveRecord)
         end
 
         def tie_activerecord_apm
@@ -45,7 +45,7 @@ module Airbrake
           return unless configurations.any?
 
           # Send SQL queries.
-          ActiveSupport::Notifications.subscribe(
+          ::ActiveSupport::Notifications.subscribe(
             'sql.active_record',
             @active_record_subscriber,
           )

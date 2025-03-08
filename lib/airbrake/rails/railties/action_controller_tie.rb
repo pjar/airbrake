@@ -21,7 +21,7 @@ module Airbrake
         end
 
         def call
-          ActiveSupport.on_load(:action_controller, run_once: true, yield: self) do
+          ::ActiveSupport.on_load(:action_controller, run_once: true, yield: self) do
             # Patches ActionController with methods that allow us to retrieve
             # interesting request data. Appends that information to notices.
             ::ActionController::Base.include(Airbrake::Rails::ActionController)
@@ -44,7 +44,7 @@ module Airbrake
             # Send performance breakdown: where a request spends its time.
             ['process_action.action_controller', @performance_breakdown_subscriber],
           ].each do |(event, callback)|
-            ActiveSupport::Notifications.subscribe(event, callback)
+            ::ActiveSupport::Notifications.subscribe(event, callback)
           end
         end
 
@@ -81,8 +81,8 @@ module Airbrake
           return unless defined?(Excon)
 
           require 'airbrake/rails/excon_subscriber'
-          ActiveSupport::Notifications.subscribe(/excon/, Airbrake::Rails::Excon.new)
-          ::Excon.defaults[:instrumentor] = ActiveSupport::Notifications
+          ::ActiveSupport::Notifications.subscribe(/excon/, Airbrake::Rails::Excon.new)
+          ::Excon.defaults[:instrumentor] = ::ActiveSupport::Notifications
         end
       end
     end

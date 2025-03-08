@@ -55,8 +55,8 @@ module Airbrake
       end
 
       def find_request(env)
-        if defined?(ActionDispatch::Request)
-          ActionDispatch::Request.new(env)
+        if defined?(::ActionDispatch::Request)
+          ::ActionDispatch::Request.new(env)
         elsif defined?(Sinatra::Request)
           Sinatra::Request.new(env)
         else

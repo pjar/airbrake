@@ -35,7 +35,7 @@ module Airbrake
         # exist in Rails 5 anymore.
         def tie_rails_5_or_above
           @middleware.insert_after(
-            ActionDispatch::DebugExceptions,
+            ::ActionDispatch::DebugExceptions,
             Airbrake::Rack::Middleware,
           )
         end
@@ -52,7 +52,7 @@ module Airbrake
         # Insert after DebugExceptions for apps without ActiveRecord.
         def tie_rails_4_or_below_without_active_record
           @middleware.insert_after(
-            ActionDispatch::DebugExceptions,
+            ::ActionDispatch::DebugExceptions,
             'Airbrake::Rack::Middleware',
           )
         end

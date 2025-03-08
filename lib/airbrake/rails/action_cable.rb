@@ -34,4 +34,4 @@ module Airbrake
   end
 end
 
-ActionCable::Channel::Base.prepend(Airbrake::ActionCable::Channel::Base)
+::ActionCable::Channel::Base.prepend(::Airbrake::ActionCable::Channel::Base)

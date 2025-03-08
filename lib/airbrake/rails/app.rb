@@ -45,7 +45,7 @@ module Airbrake
             # Rails 7+ the AST for the route is not kept in memory anymore.
             #
             # See: https://github.com/rails/rails/pull/43006#discussion_r783895766
-            next if route.path.spec.any?(ActionDispatch::Journey::Nodes::Star)
+            next if route.path.spec.any?(::ActionDispatch::Journey::Nodes::Star)
 
             path =
               if engine == ::Rails.application
@@ -61,7 +61,7 @@ module Airbrake
             #
             # We return the first route as, what it seems, the most optimal
             # approach.
-            return Route.new(path)
+            return ::Route.new(path)
           end
         end
 

@@ -4,7 +4,7 @@ module Airbrake
   module Rails
     # Enables support for exceptions occurring in ActiveJob jobs.
     module ActiveJob
-      extend ActiveSupport::Concern
+      extend ::ActiveSupport::Concern
 
       def self.notify_airbrake(exception, job)
         notice = Airbrake.build_notice(exception)

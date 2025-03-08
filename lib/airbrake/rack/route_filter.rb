@@ -39,8 +39,8 @@ module Airbrake
       end
 
       def action_dispatch_request?(request)
-        defined?(ActionDispatch::Request) &&
-          request.instance_of?(ActionDispatch::Request)
+        defined?(::ActionDispatch::Request) &&
+          request.instance_of?(::ActionDispatch::Request)
       end
 
       def sinatra_request?(request)
